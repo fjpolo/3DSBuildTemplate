@@ -1,5 +1,18 @@
 #include "main.h"
 
+// Buttons
+//  - KEY_A
+//  - KEY_B
+//  - KEY_X
+//  - KEY_Y
+//  - KEY_L
+//  - KEY_R
+//  - KEY_DUP
+//  - KEY_DDOWN
+//  - KEY_DRIGHT
+//  - KEY_DLEFT
+//  - KEY_DTOUCH(Doesn't really handles touch)
+
 int _3ds_init(void){
     // Initialization
     srvInit();        // services
