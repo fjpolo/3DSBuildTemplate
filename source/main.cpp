@@ -1,22 +1,46 @@
 #include "main.h"
 
+int _3ds_init(void){
+    // Initialization
+    srvInit();        // services
+    aptInit();        // applets
+    hidInit();        // input
+    gfxInitDefault(); // graphics
+    gfxSet3D(false);  // stereoscopy (true: enabled / false: disabled)
+    return 0;
+}
+
 int main(int argc, char **argv) {
-    gfxInitDefault();
+    // Initialization
+    _3ds_init();
+    
+    // Init console
     consoleInit(GFX_TOP, NULL);
 
+    // Output
     Output::printAt("Hello world!", 20, 20);
 
     while(aptMainLoop()) {
+        // Wait for next frame
+        gspWaitForVBlank();
+
+        // Scan for inputs
         hidScanInput();
-        if(hidKeysDown() & KEY_START) {
+        if((hidKeysDown())&(KEY_START)) {
+            // Start is pressed
             break;
         }
 
+        // Handle buffers
         gfxFlushBuffers();
         gfxSwapBuffers();
-        gspWaitForVBlank();
     }
-
+    // Exit
     gfxExit();
+    hidExit();
+    aptExit();
+    srvExit();
+
+    // Return
     return 0;
 }
